@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Taskbar</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: flex-end;
+            height: 100vh;
+            background: #1e1e1e;
+            font-family: Arial, sans-serif;
+        }
+
+        .taskbar {
+            display: flex;
+            justify-content: center; /* Center icons horizontally */
+            align-items: center;
+            background: rgba(255, 182, 193, 0.7); /* Baby pink with transparency */
+            height: 50px;
+            width: 100%;
+            padding: 0 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+            position: relative; /* For absolute positioning of the time and message */
+        }
+
+        .taskbar-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border-radius: 5px;
+            background: #FFB6C1; /* Solid baby pink background */
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .taskbar-icon:hover {
+            background: #FF7F9E; /* Slightly darker pink for hover effect */
+        }
+
+        .taskbar-icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain; /* Ensures the image is contained within the background */
+        }
+
+        .taskbar-icon a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .taskbar-right {
+            position: absolute;
+            right: 12px; /* 2px closer to center */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically center content */
+            align-items: flex-start;
+            color: white;
+            font-size: 16px; /* Increased by 100% */
+            height: 50px; /* Equal height for date/time and message */
+        }
+
+        .time {
+            font-size: 16px; /* Increased size */
+            line-height: 1.2;
+        }
+
+        .message {
+            font-size: 19px; /* Increased size */
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+     <div class="taskbar">
+        <!-- Spotify Icon -->
+        <div class="taskbar-icon">
+            <a href="spotify://" title="Spotify">
+                <img src="https://img.icons8.com/?size=100&id=11116&format=png&color=F25081" alt="Spotify">
+            </a>
+        </div>
+        
+        <!-- Settings Icon -->
+        <div class="taskbar-icon">
+            <a href="ms-settings:" title="Settings">
+                <img src="https://cdn-icons-png.flaticon.com/128/6304/6304894.png" alt="Settings">
+            </a>
+        </div>
+
+        <!-- My HCC Icon -->
+        <div class="taskbar-icon">
+            <a href="https://my.hccfl.edu" title="My HCC">
+                <img src="https://my.hccfl.edu/assets/logo/MyHCC_logo.png" alt="My HCC">
+            </a>
+        </div>
+
+        <!-- Canvas Icon -->
+        <div class="taskbar-icon">
+            <a href="https://hcc.instructure.com/" title="Canvas">
+                <img src="https://instructure-uploads.s3.amazonaws.com/account_38180000000000001/attachments/5301776/Seal_and_HCC_white_NavMenulogo.png" alt="Canvas">
+            </a>
+        </div>
+
+        <!-- Photos Icon -->
+        <div class="taskbar-icon">
+            <a href="ms-photos:" title="Photos">
+                <img src="https://cdn-icons-png.flaticon.com/128/12751/12751336.png" alt="Photos">
+            </a>
+        </div>
+
+        <!-- Microsoft Teams Icon -->
+        <div class="taskbar-icon">
+            <a href="msteams:" title="Microsoft Teams">
+                <img src="https://cdn-icons-png.flaticon.com/128/14939/14939875.png" alt="Microsoft Teams">
+            </a>
+        </div>
+
+        <!-- Calculator Icon -->
+        <div class="taskbar-icon">
+            <a href="calculator:" title="Calculator">
+                <img src="https://cdn-icons-png.flaticon.com/128/9886/9886057.png" alt="Calculator">
+            </a>
+        </div>
+
+        <!-- Mail Icon -->
+        <div class="taskbar-icon">
+            <a href="https://outlook.office365.com/mail/" title="Outlook Mail">
+                <img src="https://cdn-icons-png.flaticon.com/128/18068/18068456.png" alt="Outlook Mail">
+            </a>
+        </div>
+
+        <!-- PTK Inbox Icon -->
+        <div class="taskbar-icon">
+            <a href="https://outlook.office.com/groups/hccfl.onmicrosoft.com/ptk/mail/inbox" title="PTK Inbox">
+                <img src="https://cdn-icons-png.flaticon.com/128/873/873360.png" alt="PTK Inbox">
+            </a>
+        </div>
+
+        <!-- PTK Connect Icon -->
+        <div class="taskbar-icon">
+            <a href="https://connect.ptk.org/" title="PTK Connect">
+                <img src="https://www.ptk.org/wp-content/uploads/icn-small.png" alt="PTK Connect">
+            </a>
+        </div>
+
+        <!-- Camera Icon -->
+        <div class="taskbar-icon">
+            <a href="microsoft.windows.camera:" title="Camera">
+                <img src="https://cdn-icons-png.flaticon.com/128/4001/4001475.png" alt="Camera">
+            </a>
+        </div>
+
+        <!-- Microsoft Edge Icon -->
+        <div class="taskbar-icon">
+            <a href="microsoft-edge:" title="Microsoft Edge">
+                <img src="https://cdn-icons-png.flaticon.com/128/18309/18309109.png" alt="Microsoft Edge">
+            </a>
+        </div>
+      <!-- Taskbar Right (Date, Time, Message) -->
+        <div class="taskbar-right">
+            <div class="time" id="time"></div>
+            <div class="message">The cost of procrastination is the life you could have.</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const options = { 
+                timeZone: "America/New_York", 
+                month: "2-digit", 
+                day: "2-digit", 
+                year: "numeric", 
+                hour: "2-digit", 
+                minute: "2-digit", 
+                second: "2-digit" 
+            };
+            const date = new Date().toLocaleString("en-US", options);
+            const formattedDate = date.replace(/(\d{2})\/(\d{2})\/(\d{4}),/, "$1/$2/$3"); // Format date as XX/XX/XXXX
+            document.getElementById("time").textContent = formattedDate;
+        }
+
+        setInterval(updateTime, 1000); // Update every second
+        updateTime(); // Initialize time immediately
+    </script>
+</body>
+</html>
