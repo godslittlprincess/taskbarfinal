@@ -16,14 +16,15 @@
 
         .taskbar {
             display: flex;
-            justify-content: center; /* Center icons horizontally */
+            justify-content: center; /* Centering icons */
             align-items: center;
-            background: rgba(255, 182, 193, 0.7); /* Baby pink with transparency */
+            background: rgba(255, 182, 193, 0.7); /* yay it
+            s baby pink now */
             height: 50px;
             width: 100%;
             padding: 0 10px;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-            position: relative; /* For absolute positioning of the time and message */
+            position: relative; /*positioning of time and message */
         }
 
         .taskbar-icon {
@@ -34,19 +35,19 @@
             height: 40px;
             margin: 0 5px;
             border-radius: 5px;
-            background: #FFB6C1; /* Solid baby pink background */
+            background: #FFB6C1; /* taskbar background color */
             cursor: pointer;
             transition: background 0.3s;
         }
 
         .taskbar-icon:hover {
-            background: #FF7F9E; /* Slightly darker pink for hover effect */
+            background: #FF7F9E; /* hover effect color */
         }
 
         .taskbar-icon img {
             width: 24px;
             height: 24px;
-            object-fit: contain; /* Ensures the image is contained within the background */
+            object-fit: contain; 
         }
 
         .taskbar-icon a {
@@ -58,23 +59,23 @@
 
         .taskbar-right {
             position: absolute;
-            right: 12px; /* 2px closer to center */
+            right: 12px; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Vertically center content */
+            justify-content: center; 
             align-items: flex-start;
             color: white;
-            font-size: 16px; /* Increased by 100% */
-            height: 50px; /* Equal height for date/time and message */
+            font-size: 16px; 
+            height: 50px; 
         }
 
         .time {
-            font-size: 16px; /* Increased size */
+            font-size: 16px; 
             line-height: 1.2;
         }
 
         .message {
-            font-size: 19px; /* Increased size */
+            font-size: 19px; 
             line-height: 1.2;
         }
     </style>
